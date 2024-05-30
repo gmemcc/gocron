@@ -315,6 +315,8 @@ func (s *scheduler) selectExecJobsOutForRescheduling(id uuid.UUID) {
 			return a.Compare(b)
 		})
 		scheduleFrom = j.nextScheduled[len(j.nextScheduled)-1]
+	} else {
+		scheduleFrom = s.now().Add(-1 * time.Second)
 	}
 
 	next := j.next(scheduleFrom)
